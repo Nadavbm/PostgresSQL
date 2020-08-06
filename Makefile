@@ -5,7 +5,10 @@ run-pg-compose:
 	echo "Postgres is running!"
 
 run-pg-container:
-	docker run --rm -ti \
+	docker run --rm \
 	-p 5432:5432 \
 	-v myvol:/var/lib/postgresql/data \
+	--env POSTGRES_USER=postgres \
+	--env POSTGRES_PASSWORD=postgres \
+	--env POSTGRES_DB=dbName \
 	postgres:11

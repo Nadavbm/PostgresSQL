@@ -76,16 +76,16 @@ CREATE TABLE people (
     username    TEXT    NOT NULL,
     age     INT     NOT NULL,
     title   CHAR(50),
-    address CHAR(50)
-)
+    uaddress CHAR(50)
+);
 ```
 
 insert a record into table `people` (we don't need to add id since it is auto increment - `SERIAL`):
 
 ``` SQL
-INSERT INTO people (id, username, age, title, uaddress) VALUES ('nadav', 36, 'devops', 'nakatomi plaza | john mclain 12')
+INSERT INTO people (username, age, title, uaddress) VALUES ('nadav', 36, 'devops', 'nakatomi plaza | john mclain 12');
 
-INSERT INTO people (id, username, age, title, uaddress) VALUES ('shimrit', 42, 'mashachnaasa', 'beersheva'), ('yoram', 'gizbar', 72, 'sde-nehemia'), ('ishtvan', 40, 'midfield', 'beitar');
+INSERT INTO people (username, age, title, uaddress) VALUES ('shimrit', 42, 'mashachnaasa', 'beersheva'), ('yoram', 72, 'gizbar', 'sde-nehemia'), ('ishtvan', 40, 'midfield', 'beitar');
 ```
 
 ##### select queries
@@ -95,7 +95,7 @@ using where, and, in, not, between, is not null, like, or - syntax ```SELECT col
 ``` SQL
 SELECT * FROM people WHERE age > 40;
 
-SELECT username, age FROM people WHERE age > 40 AND title IS NOT LIKE '%mas%';
+SELECT username, age FROM people WHERE age > 40 AND title LIKE '%mas%';
 
 SELECT username, title FROM people WHERE age NOT IN (40,72);
 
@@ -119,13 +119,13 @@ create the tables with relations:
 ``` SQL
 CREATE TABLE people (pid serial primary key not null, name char(50) not null);
 CREATE TABLE cars (cid serial primary key not null, car_type char(50) not null, car_license text not null);
-CREATE TABLE rent_time (rid serial primary key not null, pid int references people(pid), cid int references cars(cid), rental_hours char(50));
+CREATE TABLE rent_time (tid serial primary key not null, pid int references people(pid), cid int references cars(cid), rental_hours char(50));
 ```
 insert some data:
 ``` SQL
 insert into people(name) values ('shimon'), ('nehemia'), ('bezazek');
 insert into cars(car_type, car_license) values ('shevrolet','123-123-33'), ('renault', '123-124-44');
-insert into rent_time (pid, rid, rental_hours) value (1,1, '8.8.2020 17:00 - 12.8.2020 18:00'), (2,1, '20.7.2020 11:00 - 22.7.2020 17:00);
+insert into rent_time (pid, cid, rental_hours) values (1,1, '8.8.2020 17:00 - 12.8.2020 18:00'), (2,1, '20.7.2020 11:00 - 22.7.2020 17:00');
 ```
 
 cross join:
