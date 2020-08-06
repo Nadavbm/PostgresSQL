@@ -65,7 +65,7 @@ list table records:
 SELECT  * FROM tableName;
 ```
 
-###### basic insert according to table structure
+###### insert queries
 
 create the table to insert data to:
 ``` SQL
@@ -86,3 +86,23 @@ INSERT INTO tableName (id, name, age, title, address) VALUES ('nadav', 36, 'devo
 INSERT INTO tableName (id, name, age, title, address) VALUES ('shimrit', 42, 'mashachnaasa', 'beersheva'), ('yoram', 'gizbar', 72, 'sde-nehemia'), ('ishtvan', 40, 'midfield', 'beitar');
 ```
 
+#### relational databases
+create the tables with relations:
+``` SQL
+CREATE TABLE people (pid serial primary key not null, name char(50) not null);
+CREATE TABLE cars (cid serial primary key not null, car_type char(50) not null, car_license text not null);
+CREATE TABLE rent_time (rid serial primary key not null, pid int references people(pid), cid int references cars(cid), rental_hours char(50));
+```
+insert some data:
+``` SQL
+insert into people(name) values ('shimon'), ('nehemia'), ('bezazek');
+insert into cars(car_type, car_license) values ('shevrolet','123-123-33'), ('renault', '123-124-44');
+insert into rent_time (pid, rid, rental_hours) value (1,1, '8.8.2020 17:00 - 12.8.2020 18:00'), (2,1, '20.7.2020 11:00 - 22.7.2020 17:00);
+```
+
+use inner join (second query uses alias):
+``` SQL
+SELECT * FROM people inner join rent_time on people.pid = rent_time.pid;
+
+SELECT * FROM people a inner join rent_time b on a.pid = b.pid;
+```
