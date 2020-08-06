@@ -6,7 +6,7 @@ terminal connect to db with pgcli \ psql:
 ``` 
 $ pgcli local_database
 
-$ psql postgres://amjith:passw0rd@example.com:5432/app_db
+$ psql postgres://amjith:passw0rd@example.com:5432&sslmode=disable
 
 $ pgcli -h localhost -p 5432 -U amjith app_db
 ```
@@ -71,9 +71,9 @@ SELECT * FROM tableName limit 10;
 
 create the table to insert data to:
 ``` SQL
-CREATE TABLE tableName (
+CREATE TABLE people (
     id  SERIAL     PRIMARY KEY,
-    name    TEXT    NOT NULL,
+    username    TEXT    NOT NULL,
     age     INT     NOT NULL,
     title   CHAR(50),
     address CHAR(50)
