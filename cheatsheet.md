@@ -59,10 +59,12 @@ CREATE TABLE tableName (
 
 drop table - ```DROP TABLE tableName;```
 
-list table records:
+list table records and limit the amount of rows (10):
 
 ``` SQL
 SELECT  * FROM tableName;
+
+SELECT * FROM tableName limit 10;
 ```
 
 ###### insert queries
@@ -78,12 +80,38 @@ CREATE TABLE tableName (
 )
 ```
 
-insert a record (we don't need to add id since it is auto increment - `SERIAL`):
+insert a record into table `people` (we don't need to add id since it is auto increment - `SERIAL`):
 
 ``` SQL
-INSERT INTO tableName (id, name, age, title, address) VALUES ('nadav', 36, 'devops', 'nakatomi plaza | john mclain 12')
+INSERT INTO people (id, username, age, title, uaddress) VALUES ('nadav', 36, 'devops', 'nakatomi plaza | john mclain 12')
 
-INSERT INTO tableName (id, name, age, title, address) VALUES ('shimrit', 42, 'mashachnaasa', 'beersheva'), ('yoram', 'gizbar', 72, 'sde-nehemia'), ('ishtvan', 40, 'midfield', 'beitar');
+INSERT INTO people (id, username, age, title, uaddress) VALUES ('shimrit', 42, 'mashachnaasa', 'beersheva'), ('yoram', 'gizbar', 72, 'sde-nehemia'), ('ishtvan', 40, 'midfield', 'beitar');
+```
+
+##### select queries
+
+using where, and, in, not, between, is not null, like, or - syntax ```SELECT col FROM tableName WHERE <condition>```
+
+``` SQL
+SELECT * FROM people WHERE age > 40;
+
+SELECT username, age FROM people WHERE age > 40 AND title IS NOT LIKE '%mas%';
+
+SELECT username, title FROM people WHERE age NOT IN (40,72);
+
+SELECT username, age FROM people WHERE age = 40 OR title IS NOT NULL;
+```
+
+##### update, insert records
+
+update syntax is ```UPDATE tableName SET col1 = val1, col2 = val2 WHERE <condition>;```
+
+delete sytax is ```DELETE FROM tableName WHERE <condition>```
+
+``` SQL
+UPDATE people SET age = 37 WHERE username = 'nadav';
+
+DELETE FROM people WHERE id = 3;
 ```
 
 #### relational databases
@@ -98,6 +126,12 @@ insert some data:
 insert into people(name) values ('shimon'), ('nehemia'), ('bezazek');
 insert into cars(car_type, car_license) values ('shevrolet','123-123-33'), ('renault', '123-124-44');
 insert into rent_time (pid, rid, rental_hours) value (1,1, '8.8.2020 17:00 - 12.8.2020 18:00'), (2,1, '20.7.2020 11:00 - 22.7.2020 17:00);
+```
+
+cross join:
+
+``` SQL
+SELECT people.name. cars.type FROM people CROSS JOIN cars;
 ```
 
 use inner join (second query uses alias):
