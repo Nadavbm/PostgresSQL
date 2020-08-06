@@ -27,9 +27,23 @@ in db commands:
 
 `'df+ functionName` describe function
 
-#### CREATE queries
+`\q` - quit
+
+#### basics
+
+##### db
 
 create database - ```CREATE DATABASE dbName;``` 
+
+drop database - ```DROP DATABASE dbName;```
+
+see which db - ```SELECT current_database();```
+
+##### users
+
+see which user connected - ```SELECT current_user();```
+
+##### tables
 
 create table - ```CREATE TABLE tableName (val1  type1, val2 type2);```
 
@@ -43,7 +57,32 @@ CREATE TABLE tableName (
 );
 ```
 
+drop table - ```DROP TABLE tableName;```
+
+list table records:
 
 ``` SQL
 SELECT  * FROM tableName;
 ```
+
+###### basic insert according to table structure
+
+create the table to insert data to:
+``` SQL
+CREATE TABLE tableName (
+    id  SERIAL     PRIMARY KEY,
+    name    TEXT    NOT NULL,
+    age     INT     NOT NULL,
+    title   CHAR(50),
+    address CHAR(50)
+)
+```
+
+insert a record (we don't need to add id since it is auto increment - `SERIAL`):
+
+``` SQL
+INSERT INTO tableName (id, name, age, title, address) VALUES ('nadav', 36, 'devops', 'nakatomi plaza | john mclain 12')
+
+INSERT INTO tableName (id, name, age, title, address) VALUES ('shimrit', 42, 'mashachnaasa', 'beersheva'), ('yoram', 'gizbar', 72, 'sde-nehemia'), ('ishtvan', 40, 'midfield', 'beitar');
+```
+
