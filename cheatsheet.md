@@ -106,3 +106,12 @@ SELECT * FROM people inner join rent_time on people.pid = rent_time.pid;
 
 SELECT * FROM people a inner join rent_time b on a.pid = b.pid;
 ```
+
+outer join (return null if no matching values) - left, right and full outer joins:
+``` SQL
+SELECT people.name, cars.car_license FROM people LEFT OUTER JOIN cars ON people.pid = cars.cid;
+
+SELECT people.name, cars.car_license FROM people RIGHT OUTER JOIN cars ON people.pid = cars.cid;
+
+SELECT people.name, cars.car_license FROM people FULL OUTER JOIN cars ON people.pid = cars.cid;
+```
